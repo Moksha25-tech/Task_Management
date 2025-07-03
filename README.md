@@ -129,15 +129,6 @@ http://localhost:9090/api/tasks
 
 ---
 
-## 🛠️ Work in Progress
-
-Currently resolving an issue where `RestTemplate` is **not hitting the cache** as expected during `GET` requests to the `/api/cache` endpoint.
-
-> The caching logic in the `TaskService` is being debugged and improved.  
-> A fix will be implemented shortly in the upcoming update.
-
----
-
 ## 👤 Author
 
 **Moksha Choksi**  
