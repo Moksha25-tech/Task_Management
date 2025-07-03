@@ -171,8 +171,8 @@ curl -X DELETE http://localhost:9090/api/tasks/507f1f77bcf86cd799439011
 ---
 
 # ⚙ Configuration
-Add this to your src/main/resources/application.properties:
-propertiesspring.data.mongodb.uri=mongodb://localhost:27017/taskdb
+Add this to your src/main/resources/application.properties:<br>
+propertiesspring.data.mongodb.uri=mongodb://localhost:27017/taskdb<br>
 server.port=9090
 
 ---
