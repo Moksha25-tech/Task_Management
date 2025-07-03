@@ -233,7 +233,7 @@ This Task Management API integrates with my separate LRU Cache repository to pro
 # 🔄 How to Use Both Systems Together
 
 Clone and Run the LRU Cache System:
-bashgit clone https://github.com/moksha-choksi/lru-cache-springboot.git
+bashgit clone [https://github.com/moksha-choksi/lru-cache-springboot.git](https://github.com/Moksha25-tech/LRUCache)
 cd lru-cache-springboot
 mvn spring-boot:run
 # LRU Cache API runs on: http://localhost:8080/api/cache
