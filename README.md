@@ -42,11 +42,11 @@ A Spring Boot application that provides a RESTful API to manage tasks with full 
 
 | Method | Endpoint             | Description          |
 |--------|----------------------|----------------------|
-| GET    | `/api/cache`         | Get all tasks        |
-| GET    | `/api/cache/{id}`    | Get task by ID       |
-| POST   | `/api/cache`         | Create new task      |
-| PUT    | `/api/cache/{id}`    | Update task          |
-| DELETE | `/api/cache/{id}`    | Delete task          |
+| GET    | `/api/tasks`         | Get all tasks        |
+| GET    | `/api/tasks/{id}`    | Get task by ID       |
+| POST   | `/api/tasks`         | Create new task      |
+| PUT    | `/api/tasks/{id}`    | Update task          |
+| DELETE | `/api/tasks/{id}`    | Delete task          |
 
 ---
 
