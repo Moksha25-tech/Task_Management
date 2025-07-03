@@ -140,28 +140,6 @@ http://localhost:9090/api/tasks
 
 ---
 
-## 👤 Author
-
-**Moksha Choksi**  
-📍 IIIT Hyderabad · UG2k24 Batch 
- 
----
-
-## 💼 Internship Experience
-
-Built as part of my internship at **Chubb**  
-🧑‍💻 **Role**: Technology Intern  
-📅 **Duration**: June 2025 – July 2025  
-🚀 **Contributions**:
-- Developed the complete Spring Boot REST API for task management
-- Integrated MongoDB as the backend database
-- Implemented LRU (Least Recently Used) Caching system using Java and Spring Boot
-- Integrated the LRU cache with REST API endpoints to improve response times
-- Wrote unit and integration tests using JUnit and Mockito
-- Applied clean architecture and exception handling best practices
-
----
-
 # 🔧 LRU Cache Integration
 This Task Management API integrates with my separate LRU Cache repository to provide high-performance caching:<br>
 🔗 LRU Cache Repository: https://github.com/Moksha25-tech/LRUCache<br>
@@ -196,3 +174,23 @@ TTL Support: Cached tasks automatically expire after configured time<br>
 LRU Eviction: Least recently used tasks removed when cache reaches capacity<br>
 
 ---
+
+## 👤 Author
+
+**Moksha Choksi**  
+📍 IIIT Hyderabad · UG2k24 Batch 
+ 
+---
+
+## 💼 Internship Experience
+
+Built as part of my internship at **Chubb**  
+🧑‍💻 **Role**: Technology Intern  
+📅 **Duration**: June 2025 – July 2025  
+🚀 **Contributions**:
+- Developed the complete Spring Boot REST API for task management
+- Integrated MongoDB as the backend database
+- Implemented LRU (Least Recently Used) Caching system using Java and Spring Boot
+- Integrated the LRU cache with REST API endpoints to improve response times
+- Wrote unit and integration tests using JUnit and Mockito
+- Applied clean architecture and exception handling best practices
