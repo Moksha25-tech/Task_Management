@@ -140,43 +140,6 @@ http://localhost:9090/api/tasks
 
 ---
 
-# 🧪 API Testing Examples
-bash# Create a new task
-curl -X POST http://localhost:9090/api/tasks \
-  -H "Content-Type: application/json" \
-  -d '{
-    "title": "Build Spring Boot App",
-    "description": "Complete the MongoDB CRUD API",
-    "status": "InProgress"
-  }'
-
-# Get all tasks
-curl -X GET http://localhost:9090/api/tasks
-
-# Get task by ID
-curl -X GET http://localhost:9090/api/tasks/507f1f77bcf86cd799439011
-
-# Update a task
-curl -X PUT http://localhost:9090/api/tasks/507f1f77bcf86cd799439011 \
-  -H "Content-Type: application/json" \
-  -d '{
-    "title": "Updated Task Title",
-    "description": "Updated description",
-    "status": "Completed"
-  }'
-
-# Delete a task
-curl -X DELETE http://localhost:9090/api/tasks/507f1f77bcf86cd799439011
-
----
-
-# ⚙ Configuration
-Add this to your src/main/resources/application.properties:<br>
-spring.data.mongodb.uri=mongodb://localhost:27017/taskdb<br>
-server.port=9090
-
----
-
 # 🎯 Key Features Implemented
 # 🔄 REST-based Caching
 
