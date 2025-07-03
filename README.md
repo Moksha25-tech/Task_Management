@@ -172,7 +172,7 @@ curl -X DELETE http://localhost:9090/api/tasks/507f1f77bcf86cd799439011
 
 # ⚙ Configuration
 Add this to your src/main/resources/application.properties:<br>
-propertiesspring.data.mongodb.uri=mongodb://localhost:27017/taskdb<br>
+spring.data.mongodb.uri=mongodb://localhost:27017/taskdb<br>
 server.port=9090
 
 ---
@@ -228,36 +228,36 @@ Built as part of my internship at **Chubb**
 ---
 
 # 🔧 LRU Cache Integration
-This Task Management API integrates with my separate LRU Cache repository to provide high-performance caching:
-🔗 LRU Cache Repository: https://github.com/Moksha25-tech/LRUCache
+This Task Management API integrates with my separate LRU Cache repository to provide high-performance caching:<br>
+🔗 LRU Cache Repository: https://github.com/Moksha25-tech/LRUCache<br>
 # 🔄 How to Use Both Systems Together
--Clone and Run the LRU Cache System:
--LRU Cache API runs on: http://localhost:8080/api/cache
--Run the Task Management API:
--bashmvn spring-boot:run
--Task Management API runs on: http://localhost:9090/api/tasks
+-Clone and Run the LRU Cache System:<br>
+-LRU Cache API runs on: http://localhost:8080/api/cache<br>
+-Run the Task Management API:<br>
+-bashmvn spring-boot:run<br>
+-Task Management API runs on: http://localhost:9090/api/tasks<br>
 
 ---
 
 # 🔄 System Architecture
-textTask Management API (Port 9090)
-        │
-        ▼
-   RestTemplate calls
-        │
-        ▼
-LRU Cache API (Port 8080) ──▶ In-Memory LRU Cache
-        │
-        ▼
-Task Data Caching & Retrieval
+textTask Management API (Port 9090)<br>
+        │<br>
+        ▼<br>
+   RestTemplate calls<br>
+        │<br>
+        ▼<br>
+LRU Cache API (Port 8080) ──▶ In-Memory LRU Cache<br>
+        │<br>
+        ▼<br>
+Task Data Caching & Retrieval<br>
 
 ---
 
 # 🚀 Performance Benefits
 
-Cache Hit: Tasks retrieved from LRU cache in ~2ms
-Cache Miss: Tasks fetched from MongoDB and cached for future requests
-TTL Support: Cached tasks automatically expire after configured time
-LRU Eviction: Least recently used tasks removed when cache reaches capacity
+Cache Hit: Tasks retrieved from LRU cache in ~2ms<br>
+Cache Miss: Tasks fetched from MongoDB and cached for future requests<br>
+TTL Support: Cached tasks automatically expire after configured time<br>
+LRU Eviction: Least recently used tasks removed when cache reaches capacity<br>
 
 ---
