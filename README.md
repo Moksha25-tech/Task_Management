@@ -25,6 +25,18 @@ A Spring Boot application that provides a RESTful API to manage tasks with full 
 
 ---
 
+## 🏗️ Tech Stack
+
+- Java 17
+- Spring Boot
+- MongoDB
+- Maven
+- JUnit 5 & Mockito (testing)
+- RestTemplate (caching)
+- Lombok (code generation)
+
+---
+
 ## 📁 **Project Structure**
 
 - `TaskController.java` — Defines REST API endpoints  
@@ -117,15 +129,79 @@ http://localhost:9090/api/tasks
 
 ## ✅ **Dependencies**
 
-- **Spring Boot**
-- **Spring Web**
-- **Spring Data MongoDB**
-- **Jakarta Validation**
+- **Spring Boot Starter Web**
+- **Spring Boot Starter Data MongoDB**
+- **Spring Data Starter Validation**
+- **Spring Boot Starter Test**
 - **Lombok**
-- **RestTemplate**
 - **JUnit 5**
 - **Mockito**
 - **Flapdoodle Embedded MongoDB**
+
+---
+
+# 🧪 API Testing Examples
+bash# Create a new task
+curl -X POST http://localhost:9090/api/tasks \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Build Spring Boot App",
+    "description": "Complete the MongoDB CRUD API",
+    "status": "InProgress"
+  }'
+
+# Get all tasks
+curl -X GET http://localhost:9090/api/tasks
+
+# Get task by ID
+curl -X GET http://localhost:9090/api/tasks/507f1f77bcf86cd799439011
+
+# Update a task
+curl -X PUT http://localhost:9090/api/tasks/507f1f77bcf86cd799439011 \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Updated Task Title",
+    "description": "Updated description",
+    "status": "Completed"
+  }'
+
+# Delete a task
+curl -X DELETE http://localhost:9090/api/tasks/507f1f77bcf86cd799439011
+
+---
+
+# ⚙ Configuration
+Add this to your src/main/resources/application.properties:
+propertiesspring.data.mongodb.uri=mongodb://localhost:27017/taskdb
+server.port=9090
+
+---
+
+# 🎯 Key Features Implemented
+# 🔄 REST-based Caching
+
+Integrated RestTemplate for external API calls
+Implemented caching logic in service layer
+Configurable cache settings
+
+# 📊 Layered Architecture
+
+Controller Layer: Handles HTTP requests/responses
+Service Layer: Contains business logic
+Repository Layer: Data access abstraction
+Model Layer: Entity definitions
+
+# 🛡️ Error Handling
+
+Global exception handler using @ControllerAdvice
+Custom exception classes
+Proper HTTP status codes and error messages
+
+# 🧪 Comprehensive Testing
+
+Unit tests with 90%+ code coverage
+Integration tests with embedded MongoDB
+Mocked dependencies for isolated testing
 
 ---
 
@@ -151,49 +227,39 @@ Built as part of my internship at **Chubb**
 
 ---
 
-# 🔮 Distributed Caching System (Future Work)
+# 🔧 LRU Cache Integration
+This Task Management API integrates with my separate LRU Cache repository to provide high-performance caching:
+🔗 LRU Cache Repository: github.com/moksha-choksi/lru-cache-springboot
+# 🔄 How to Use Both Systems Together
 
-As a continuation of my internship project at **Chubb**, I will be developing a **Distributed Caching System** as a standalone backend microservice.
+Clone and Run the LRU Cache System:
+bashgit clone https://github.com/moksha-choksi/lru-cache-springboot.git
+cd lru-cache-springboot
+mvn spring-boot:run
+# LRU Cache API runs on: http://localhost:8080/api/cache
 
-🧩 Problem Statement
-- Performance Bottleneck: The existing backend service experiences latency and increased load due to repeated access to frequently requested data from the primary database.
-- Scalability Requirement: As the system scales with more users and services, a centralized or single-node cache becomes insufficient and introduces reliability risks.
-- Proposed Solution: Design and implement a Distributed Caching System as a dedicated microservice to improve data access performance, reduce backend load, and enable scalable, fault-tolerant caching across multiple service instances.
-
----
-
-## 🚀 Overview
-
-This microservice will act as a caching layer between internal backend services and the primary database. It will expose simple REST APIs to interact with the cache, and support eviction, TTL, and sync across nodes.
-
----
-
-## 🎯 Goals
-
-- Build a RESTful caching microservice in **Java Spring Boot**
-- Implement core **LRU eviction** logic
-- Ensure support for **scalability, concurrency**, and **fault tolerance**
+Run the Task Management API:
+bashmvn spring-boot:run
+# Task Management API runs on: http://localhost:9090/api/tasks
 
 ---
 
-## ⚙️ Planned Features
+# 🔄 System Architecture
+textTask Management API (Port 9090)
+        │
+        ▼
+   RestTemplate calls
+        │
+        ▼
+LRU Cache API (Port 8080) ──▶ In-Memory LRU Cache
+        │
+        ▼
+Task Data Caching & Retrieval
+🚀 Performance Benefits
 
-- 🔄 REST APIs for `GET`, `PUT`, `DELETE`, and `CLEAR` cache
-- ⏱️ Configurable **TTL (Time-To-Live)** and **max size**
-- 🧠 Built-in **LRU eviction policy**
-- 📊 Metrics and logging support
-- 🧪 Unit & integration tests using **JUnit 5** and **Mockito**
+Cache Hit: Tasks retrieved from LRU cache in ~2ms
+Cache Miss: Tasks fetched from MongoDB and cached for future requests
+TTL Support: Cached tasks automatically expire after configured time
+LRU Eviction: Least recently used tasks removed when cache reaches capacity
 
 ---
-
-## 🏗️ Sample Architecture
-
-```text
-Client
-  │
-  ▼
-Backend Services ──▶ Distributed Cache Service ──▶ Primary Database
-                     ▲
-                     └── Cache Hit / Miss, Eviction, Sync
-
-
