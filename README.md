@@ -153,9 +153,56 @@ Built as part of my internship at **Chubb**
 🚀 **Contributions**:
 - Developed the complete Spring Boot REST API for task management
 - Integrated MongoDB as the backend database
-- Implemented REST-based caching using `RestTemplate`
+- Implemented LRU (Least Recently Used) Caching system using Java and Spring Boot
+- Integrated the LRU cache with REST API endpoints to improve response times
 - Wrote unit and integration tests using JUnit and Mockito
 - Applied clean architecture and exception handling best practices
 
 ---
+
+# 🔮 Distributed Caching System (Future Work)
+
+As a continuation of my internship project at **Chubb**, I will be developing a **Distributed Caching System** as a standalone backend microservice.
+
+🧩 Problem Statement
+- Performance Bottleneck: The existing backend service experiences latency and increased load due to repeated access to frequently requested data from the primary database.
+- Scalability Requirement: As the system scales with more users and services, a centralized or single-node cache becomes insufficient and introduces reliability risks.
+- Proposed Solution: Design and implement a Distributed Caching System as a dedicated microservice to improve data access performance, reduce backend load, and enable scalable, fault-tolerant caching across multiple service instances.
+
+---
+
+## 🚀 Overview
+
+This microservice will act as a caching layer between internal backend services and the primary database. It will expose simple REST APIs to interact with the cache, and support eviction, TTL, and sync across nodes.
+
+---
+
+## 🎯 Goals
+
+- Build a RESTful caching microservice in **Java Spring Boot**
+- Implement core **LRU eviction** logic
+- Ensure support for **scalability, concurrency**, and **fault tolerance**
+
+---
+
+## ⚙️ Planned Features
+
+- 🔄 REST APIs for `GET`, `PUT`, `DELETE`, and `CLEAR` cache
+- ⏱️ Configurable **TTL (Time-To-Live)** and **max size**
+- 🧠 Built-in **LRU eviction policy**
+- 📊 Metrics and logging support
+- 🧪 Unit & integration tests using **JUnit 5** and **Mockito**
+
+---
+
+## 🏗️ Sample Architecture
+
+```text
+Client
+  │
+  ▼
+Backend Services ──▶ Distributed Cache Service ──▶ Primary Database
+                     ▲
+                     └── Cache Hit / Miss, Eviction, Sync
+
 
