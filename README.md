@@ -140,34 +140,6 @@ http://localhost:9090/api/tasks
 
 ---
 
-# 🎯 Key Features Implemented
-# 🔄 REST-based Caching
-
-Integrated RestTemplate for external API calls
-Implemented caching logic in service layer
-Configurable cache settings
-
-# 📊 Layered Architecture
-
-Controller Layer: Handles HTTP requests/responses
-Service Layer: Contains business logic
-Repository Layer: Data access abstraction
-Model Layer: Entity definitions
-
-# 🛡️ Error Handling
-
-Global exception handler using @ControllerAdvice
-Custom exception classes
-Proper HTTP status codes and error messages
-
-# 🧪 Comprehensive Testing
-
-Unit tests with 90%+ code coverage
-Integration tests with embedded MongoDB
-Mocked dependencies for isolated testing
-
----
-
 ## 👤 Author
 
 **Moksha Choksi**  
