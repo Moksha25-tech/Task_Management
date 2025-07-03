@@ -132,7 +132,7 @@ http://localhost:9090/api/tasks
 ## 👤 Author
 
 **Moksha Choksi**  
-📍 IIIT Hyderabad · ECE Undergrad  
+📍 IIIT Hyderabad · UG2k24 Batch 
  
 ---
 
