@@ -110,7 +110,7 @@ mvn spring-boot:run
 ### 3️⃣ Access the API:
 
 ```
-http://localhost:9090/api/cache
+http://localhost:9090/api/tasks
 ```
 
 ---
