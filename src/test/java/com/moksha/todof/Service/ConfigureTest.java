@@ -1,20 +1,22 @@
 package com.moksha.todof.Service;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.web.client.RestTemplate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
 class ConfigureTest {
 
-    @Autowired
-    private RestTemplate restTemplate;
-
     @Test
-    void restTemplateBeanShouldExist() {
-        assertNotNull(restTemplate, "RestTemplate bean should be created and injected");
+    void testRestTemplateBeanCreation() {
+        // Load the Spring context manually
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Configure.class);
+
+        RestTemplate restTemplate = context.getBean(RestTemplate.class);
+
+        assertNotNull(restTemplate, "RestTemplate bean should not be null");
+
+        context.close();
     }
 }

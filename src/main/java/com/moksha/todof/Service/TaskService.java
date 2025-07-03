@@ -30,32 +30,27 @@ public class TaskService {
     }
 
     public List<Task> getAllTasks() {
-        log.info("Fetching all tasks");
+        log.info("Fetching all tasks from database");
         return taskRepository.findAll();
     }
 
     public ResponseEntity<Task> getTaskById(String id) {
         log.info("Fetching task with id: {}", id);
 
-        ResponseEntity<Task> response = restTemplate.getForEntity(cacheServiceUrl + "/" + id, Task.class);
-        if (response.getStatusCode() == HttpStatus.OK) {
-            log.info("Task found in cache with id: {}", id);
-            return ResponseEntity.ok(response.getBody());
-        }
+       Task cachedTask = fetchFromCache(id);
+       if(cachedTask != null) {
+           return ResponseEntity.ok(cachedTask);
+       }
 
-        Optional<Task> optionalTask = taskRepository.findById(id);
-        if (optionalTask.isPresent()) {
-            Task task = optionalTask.get();
-            log.info("Task not found in cache, fetched from database with id: {}", id);
+       Optional<Task> optionalTask = taskRepository.findById(id);
+       if(optionalTask.isPresent()) {
+           Task task = optionalTask.get();
+           addToCache(id, task);
+           return ResponseEntity.ok(task);
+       }
 
-            restTemplate.postForEntity(cacheServiceUrl + "/" + id, task, Void.class);
-            log.info("Task added to cache with id: {}", id);
-
-            return ResponseEntity.ok(task);
-        }
-
-        log.warn("Task not found with id: {}", id);
-        return ResponseEntity.notFound().build();
+       log.info("Task with id: {} not found", id);
+       return ResponseEntity.notFound().build();
     }
 
     public Task createTask(@NotNull Task task) {
@@ -70,14 +65,11 @@ public class TaskService {
         task.setTitle(taskDetails.getTitle());
         task.setDescription(taskDetails.getDescription());
         task.setStatus(taskDetails.getStatus());
-        task.setCreatedAt(LocalDateTime.now());
         task.setUpdatedAt(LocalDateTime.now());
         Task updatedTask = taskRepository.save(task);
 
-        ResponseEntity<Task> response = restTemplate.getForEntity(cacheServiceUrl + "/" + updatedTask.getId(), Task.class);
-        if (response.getStatusCode() == HttpStatus.OK) {
-            restTemplate.postForEntity(cacheServiceUrl + "/" + updatedTask.getId(), taskDetails, Task.class);
-            log.info("Task added to cache with id: {}", updatedTask.getId());
+        if(isPresentInCache(id)){
+            updateCache(id, updatedTask);
         }
 
         return updatedTask;
@@ -87,10 +79,61 @@ public class TaskService {
         log.info("Deleting task with id: {}", id);
         taskRepository.deleteById(id);
 
-        ResponseEntity<Task> response = restTemplate.getForEntity(cacheServiceUrl + "/" + id, Task.class);
-        if (response.getStatusCode() == HttpStatus.OK) {
+        removeFromCache(id);
+    }
+
+    private Task fetchFromCache(String id) {
+        try {
+            ResponseEntity<Task> responseEntity = restTemplate.getForEntity(cacheServiceUrl + "/" + id, Task.class);
+            if(responseEntity.getStatusCode() ==  HttpStatus.OK) {
+                log.info("Task found in cache with id: {}", id);
+                return responseEntity.getBody();
+            }
+        }
+        catch(Exception e) {
+            log.error("Failed to fetch task from cache: {}", e.getMessage());
+        }
+        return null;
+    }
+
+    private void addToCache(String id, Task task) {
+        try {
+            restTemplate.postForEntity(cacheServiceUrl, new KeyValueDTO(id, task), Void.class);
+            log.info("Task added to cache with id: {}", id);
+        }
+        catch(Exception e) {
+            log.warn("Failed to add task to cache: {}", e.getMessage());
+        }
+    }
+
+    private boolean isPresentInCache(String id) {
+        try {
+            ResponseEntity<Task> response = restTemplate.getForEntity(cacheServiceUrl + "/" + id, Task.class);
+            return response.getStatusCode() == HttpStatus.OK;
+        }
+        catch(Exception e) {
+            log.warn("Cache not available or task not found in cache while checking existence: {}", e.getMessage());
+            return false;
+        }
+    }
+
+    private void updateCache(String id, Task task) {
+        try {
+            restTemplate.put(cacheServiceUrl + "/" + id, new KeyValueDTO(id, task));
+            log.info("Task updated in cache with id: {}", id);
+        }
+        catch(Exception e) {
+            log.warn("Failed to update task in cache: {}", e.getMessage());
+        }
+    }
+
+    private void removeFromCache(String id) {
+        try {
             restTemplate.delete(cacheServiceUrl + "/" + id);
             log.info("Task deleted from cache with id: {}", id);
+        }
+        catch(Exception e) {
+            log.warn("Failed to delete task from cache: {}", e.getMessage());
         }
     }
 }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/cache")
+@RequestMapping("/api/tasks")
 public class TaskController {
 
     @Autowired
@@ -40,7 +40,7 @@ public class TaskController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Task> deleteTask(@PathVariable String id) {
+    public ResponseEntity<Void> deleteTask(@PathVariable String id) {
         taskService.deleteTask(id);
         return ResponseEntity.noContent().build();
     }

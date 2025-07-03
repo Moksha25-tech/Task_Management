@@ -16,14 +16,14 @@ public class GlobalExceptionHandler {
         return ex.getMessage();
     }
 
-    @ExceptionHandler
+    @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     public String handleIllegalArgument(IllegalArgumentException ex) {
         return ex.getMessage();
     }
 
-    @ExceptionHandler
+    @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     public String handleGeneralException(Exception ex) {
